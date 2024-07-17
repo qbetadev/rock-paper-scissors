@@ -1,5 +1,5 @@
-let computerScore = 0;
-let humanScore = 0;
+let scoreComputer = 0;
+let scoreHuman = 0;
 let randomNumber = getRandomIntInclusive(1, 3);
 
 //Checking random number in console
@@ -12,23 +12,39 @@ function getRandomIntInclusive(minNumber, maxNumber) {
 
 //Getting computer choice depending on the random number above
 function getComputerChoice(randomNumber) {
-  let choiceComputer;
-  if (randomNumber === 1) {
-    choiceComputer = "rock";
-  } else if (randomNumber === 2) {
-    choiceComputer = "paper";
-  } else {
-    choiceComputer = "scissors";
-  }
-  console.log("Computer choice - " + choiceComputer);
+    let choiceComputer;
+    switch(randomNumber) {
+        case 1:
+            choiceComputer = "rock";
+            break;
+        case 2:
+            choiceComputer = "paper";
+            break;
+        case 3:
+            choiceComputer = "scissors";
+            break;
+        default:
+            console.log("try again");
+    }
+  return choiceComputer;
 }
 
 //Asking user to input his choice
 function getHumanChoice() {
-    let choiceHuman = prompt("Choose rock, paper or scissors");
-    console.log("Your choice - " + choiceHuman);
+    let choiceHuman = prompt("Choose rock, paper or scissors").toLowerCase();
+    return choiceHuman;
 }
 
-getHumanChoice();
-getComputerChoice();
+let selectionHuman = getHumanChoice();
+let selectionComputer = getComputerChoice(randomNumber);
 
+function showSelectionHuman() {
+    console.log("Your choice - " + selectionHuman);
+}
+
+function showSelectionComputer() {
+    console.log("Computer choice - " + selectionComputer);
+}
+
+showSelectionHuman();
+showSelectionComputer();
