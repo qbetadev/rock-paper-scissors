@@ -48,3 +48,27 @@ function showSelectionComputer() {
 
 showSelectionHuman();
 showSelectionComputer();
+
+function playRound() {
+    if (selectionHuman === selectionComputer) {
+        console.log("It's a tie!");
+    } else if (
+        (selectionHuman === "rock" && selectionComputer === "paper") ||
+        (selectionHuman === "paper" && selectionComputer === "scissors") ||
+        (selectionHuman === "scissors" && selectionComputer === "rock")
+    ) {
+        console.log(`You lose, ${selectionComputer} beats ${selectionHuman}!`);
+        scoreComputer += 1;
+        console.log(scoreComputer, scoreHuman);
+    } else if (
+        (selectionHuman === "rock" && selectionComputer === "scissors") ||
+        (selectionHuman === "paper" && selectionComputer === "rock") ||
+        (selectionHuman === "scissors" && selectionComputer === "paper")
+    ) {
+        console.log(`You won, ${selectionHuman} beats ${selectionComputer}!`);
+        scoreHuman += 1;
+        console.log(scoreComputer, scoreHuman);
+    }
+}
+
+playRound();
