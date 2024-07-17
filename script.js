@@ -1,10 +1,3 @@
-let scoreComputer = 0;
-let scoreHuman = 0;
-let randomNumber = getRandomIntInclusive(1, 3);
-
-//Checking random number in console
-//console.log(randomNumber);
-
 function getRandomIntInclusive(minNumber, maxNumber) {
   // The maximum is inclusive and the minimum is inclusive
   return Math.floor(Math.random() * (maxNumber - minNumber + 1) + minNumber);
@@ -35,40 +28,47 @@ function getHumanChoice() {
     return choiceHuman;
 }
 
-let selectionHuman = getHumanChoice();
-let selectionComputer = getComputerChoice(randomNumber);
-
-function showSelectionHuman() {
+function showSelectionHuman(selectionHuman) {
     console.log("Your choice - " + selectionHuman);
 }
 
-function showSelectionComputer() {
+function showSelectionComputer(selectionComputer) {
     console.log("Computer choice - " + selectionComputer);
 }
 
-showSelectionHuman();
-showSelectionComputer();
-
-function playRound() {
+//Single round function
+function playRound(scoreComputer, scoreHuman) {
+    let roundWinner = "";
+    let randomNumber = getRandomIntInclusive(1, 3);
+    let selectionHuman = getHumanChoice();
+    let selectionComputer = getComputerChoice(randomNumber);
     if (selectionHuman === selectionComputer) {
+        showSelectionHuman(selectionHuman);
+        showSelectionComputer(selectionComputer);
         console.log("It's a tie!");
+        console.log(`Computer score - ${scoreComputer}, your score ${scoreHuman}`);
+        roundWinner = "tie";
     } else if (
         (selectionHuman === "rock" && selectionComputer === "paper") ||
         (selectionHuman === "paper" && selectionComputer === "scissors") ||
         (selectionHuman === "scissors" && selectionComputer === "rock")
     ) {
+        showSelectionHuman(selectionHuman);
+        showSelectionComputer(selectionComputer);
         console.log(`You lose, ${selectionComputer} beats ${selectionHuman}!`);
         scoreComputer += 1;
-        console.log(scoreComputer, scoreHuman);
+        console.log(`Computer score - ${scoreComputer}, your score ${scoreHuman}`);
+        roundWinner = "computer";
     } else if (
         (selectionHuman === "rock" && selectionComputer === "scissors") ||
         (selectionHuman === "paper" && selectionComputer === "rock") ||
         (selectionHuman === "scissors" && selectionComputer === "paper")
     ) {
+        showSelectionHuman(selectionHuman);
+        showSelectionComputer(selectionComputer);
         console.log(`You won, ${selectionHuman} beats ${selectionComputer}!`);
         scoreHuman += 1;
-        console.log(scoreComputer, scoreHuman);
+        console.log(`Computer score - ${scoreComputer}, your score ${scoreHuman}`);
+        roundWinner = "human";
     }
 }
-
-playRound();
