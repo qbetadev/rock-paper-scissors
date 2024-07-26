@@ -62,46 +62,77 @@ function playRound(selectionHuman) {
     return roundWinner;
 }
 
-//5 rounds game
-// function playGame() {
-//     let scoreComputer = 0;
-//     let scoreHuman = 0;
-//     let roundWinner;
+function playGame(selectionHuman) {
+    roundWinner = playRound(selectionHuman);
+    switch(roundWinner) {
+        case "tie":
+            scoreText.textContent = `Computer score - ${scoreComputer}, your score - ${scoreHuman}`;
+            break;
+        case "computer":
+            scoreComputer += 1;
+            scoreText.textContent = `Computer score - ${scoreComputer}, your score - ${scoreHuman}`;
+            break;
+        case "human":
+            scoreHuman += 1;
+            scoreText.textContent = `Computer score - ${scoreComputer}, your score - ${scoreHuman}`;
+            break;
+    }
+}
 
-//     for (let roundNumber = 1; roundNumber <= 5; roundNumber++) {
-//         roundWinner = playRound();
-//         switch(roundWinner) {
-//             case "tie":
-//                 console.log(`Computer score - ${scoreComputer}, your score ${scoreHuman}`);
-//                 break;
-//             case "computer":
-//                 scoreComputer += 1;
-//                 console.log(`Computer score - ${scoreComputer}, your score ${scoreHuman}`);
-//                 break;
-//             case "human":
-//                 scoreHuman += 1;
-//                 console.log(`Computer score - ${scoreComputer}, your score ${scoreHuman}`);
-//                 break;
-//         }
-//     }
+function restartGame () {
+    roundNumber = 1;
+    scoreComputer = 0;
+    scoreHuman = 0;
+    humanChoiceText.textContent = '';
+    computerChoiceText.textContent = '';
+    roundWinnerText.textContent = '';
+    scoreText.textContent = 'Computer score - 0, your score - 0';
+    gameWinnerText.textContent = '';
+}
 
-//     if (scoreHuman > scoreComputer) {
-//         console.log("You won the game!");
-//     } else if (scoreHuman< scoreComputer) {
-//         console.log("You lose the game!");
-//     } else {
-//         console.log("It's a tie!");
-//     }
-// }
-
-const buttonChoice = document.querySelectorAll('.button');
+const buttonChoice = document.querySelectorAll('.buttonRock, .buttonPaper, .buttonScissors');
+const buttonRestart = document.querySelector('.buttonRestart');
 const humanChoiceText = document.querySelector('.humanChoice');
 const computerChoiceText = document.querySelector('.computerChoice');
-const roundWinnerText = document.querySelector('.winner')
+const roundWinnerText = document.querySelector('.roundWinner');
+const scoreText = document.querySelector('.score');
+const gameWinnerText = document.querySelector('.gameWinner');
+
+let scoreComputer = 0;
+let scoreHuman = 0;
+let roundNumber = 1;
 
 buttonChoice.forEach((button) => {
     button.addEventListener('click', () => {
         let selectionHuman = button.textContent.toLowerCase();
-        playRound(selectionHuman);
+        console.log(roundNumber);
+        if (roundNumber < 5) {
+            playGame(selectionHuman);
+            roundNumber++;
+        } else if (roundNumber = 5) {
+            playGame(selectionHuman);
+            roundNumber++;
+            if (scoreHuman > scoreComputer) {
+                gameWinnerText.textContent = 'You won the game!';
+                setTimeout(() => restartGame(), 4000);
+            } else if (scoreHuman < scoreComputer) {
+                gameWinnerText.textContent = 'You lose the game!';
+                setTimeout(() => restartGame(), 4000);
+            } else {
+                gameWinnerText.textContent = 'It\'s a tie!';
+                setTimeout(() => restartGame(), 4000);
+            }
+        }
     });
+});
+
+buttonRestart.addEventListener('click', () => {
+    roundNumber = 1;
+    scoreComputer = 0;
+    scoreHuman = 0;
+    humanChoiceText.textContent = '';
+    computerChoiceText.textContent = '';
+    roundWinnerText.textContent = '';
+    scoreText.textContent = 'Computer score - 0, your score - 0';
+    gameWinnerText.textContent = '';
 });
